@@ -3,7 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
-import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -190,7 +189,7 @@ void main() {
             equals('updatedName'),
           );
         });
-      }, skip: !kIsWeb && Platform.isWindows,);
+      });
 
       group('currentUser', () {
         test('should return currentUser', () async {
@@ -211,7 +210,7 @@ void main() {
             fail(e.toString());
           }
         });
-      }, skip: !kIsWeb && Platform.isWindows,);
+      });
 
       group('checkActionCode()', () {
         test('throws on invalid code', () async {
@@ -224,7 +223,7 @@ void main() {
             fail(e.toString());
           }
         });
-      }, skip: !kIsWeb && Platform.isWindows,);
+      });
 
       group('confirmPasswordReset()', () {
         test('throws on invalid code', () async {
@@ -240,7 +239,7 @@ void main() {
             fail(e.toString());
           }
         });
-      }, skip: !kIsWeb && Platform.isWindows,);
+      });
 
       group('createUserWithEmailAndPassword', () {
         test('should create a user with an email and password', () async {
@@ -261,11 +260,7 @@ void main() {
 
             var additionalUserInfo = newUserCredential.additionalUserInfo;
             expect(additionalUserInfo, isA<AdditionalUserInfo>());
-            if (!kIsWeb && Platform.isWindows) {
-              // Skip because isNewUser is always false on Windows
-            } else {
-              expect(additionalUserInfo?.isNewUser, isTrue);
-            }
+            expect(additionalUserInfo?.isNewUser, isTrue);
 
             await FirebaseAuth.instance.currentUser?.delete();
           };
@@ -350,7 +345,7 @@ void main() {
             fail(e.toString());
           }
         });
-      }, skip: !kIsWeb && Platform.isWindows,);
+      });
 
       group('isSignInWithEmailLink()', () {
         test('should return true or false', () {
@@ -410,7 +405,7 @@ void main() {
             fail(e.toString());
           }
         });
-      }, skip: !kIsWeb && Platform.isWindows,);
+      });
 
       group('sendSignInLinkToEmail()', () {
         test('should send email successfully', () async {
@@ -448,7 +443,7 @@ void main() {
             Uri.encodeFull(continueUrl),
           );
         });
-      }, skip: !kIsWeb && Platform.isWindows,);
+      });
 
       group('languageCode', () {
         test('should change the language code', () async {
@@ -506,7 +501,7 @@ void main() {
           },
           skip: !kIsWeb,
         );
-      }, skip: !kIsWeb && Platform.isWindows,);
+      });
 
       group('signInAnonymously()', () {
         test('should sign in anonymously', () async {
@@ -530,7 +525,7 @@ void main() {
 
           final userCred = await FirebaseAuth.instance.signInAnonymously();
           await successCallback(userCred);
-        }, skip: !kIsWeb && Platform.isWindows,);
+        });
       });
 
       group('signInWithCredential()', () {
@@ -542,7 +537,7 @@ void main() {
           await FirebaseAuth.instance
               .signInWithCredential(credential)
               .then(commonSuccessCallback);
-        }, skip: !kIsWeb && Platform.isWindows,);
+        });
 
         test('throws if login user is disabled', () async {
           final credential = EmailAuthProvider.credential(
@@ -640,7 +635,7 @@ void main() {
           expect(idTokenResult.claims!['roles'][0], isA<Map>());
           expect(idTokenResult.claims!['roles'][0]['role'], 'member');
         });
-      }, skip: !kIsWeb && Platform.isWindows,);
+      });
 
       group('signInWithEmailAndPassword()', () {
         test('should login with email and password', () async {
@@ -733,7 +728,7 @@ void main() {
             fail(e.toString());
           }
         });
-      }, skip: !kIsWeb && Platform.isWindows,);
+      });
 
       group(
         'verifyPhoneNumber()',
@@ -826,7 +821,7 @@ void main() {
             skip: kIsWeb || defaultTargetPlatform != TargetPlatform.android,
           );
         },
-        skip: defaultTargetPlatform == TargetPlatform.macOS || defaultTargetPlatform == TargetPlatform.windows || kIsWeb,
+        skip: defaultTargetPlatform == TargetPlatform.macOS || kIsWeb,
       );
 
       group('setSettings()', () {

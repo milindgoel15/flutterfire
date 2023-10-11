@@ -10,7 +10,6 @@
 #include <flutter_plugin_registrar.h>
 
 #include <string>
-#include <vector>
 
 #ifdef FLUTTER_PLUGIN_IMPL
 #define FLUTTER_PLUGIN_EXPORT __declspec(dllexport)
@@ -18,7 +17,24 @@
 #define FLUTTER_PLUGIN_EXPORT __declspec(dllimport)
 #endif
 
+#if defined(__cplusplus)
+extern "C" {
+#endif
+
 FLUTTER_PLUGIN_EXPORT void FirebaseCorePluginCApiRegisterWithRegistrar(
     FlutterDesktopPluginRegistrarRef registrar);
 
+<<<<<<< HEAD
+=======
+FLUTTER_PLUGIN_EXPORT void* GetFirebaseApp(std::string appName);
+
+FLUTTER_PLUGIN_EXPORT void* GetFirebaseAuth(std::string appName);
+
+FLUTTER_PLUGIN_EXPORT void* GetFirebaseRemoteConfig(std::string appName);
+
+#if defined(__cplusplus)
+}  // extern "C"
+#endif
+
+>>>>>>> parent of 0cedfc858 (feat(auth, windows): add Windows support to auth plugin (#11089))
 #endif  // FLUTTER_PLUGIN_FIREBASE_CORE_PLUGIN_C_API_H_

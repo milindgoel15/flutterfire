@@ -10,7 +10,6 @@
 #include <flutter/method_channel.h>
 #include <flutter/plugin_registrar_windows.h>
 
-#include <map>
 #include <memory>
 
 #include "messages.g.h"
@@ -22,6 +21,12 @@ class FirebaseCorePlugin : public flutter::Plugin,
                            public FirebaseAppHostApi {
  public:
   static void RegisterWithRegistrar(flutter::PluginRegistrarWindows *registrar);
+<<<<<<< HEAD
+=======
+  static void *GetFirebaseApp(std::string appName);
+  static void *GetFirebaseAuth(std::string appName);
+  static void *GetFirebaseRemoteConfig(std::string appName);
+>>>>>>> parent of 0cedfc858 (feat(auth, windows): add Windows support to auth plugin (#11089))
 
   FirebaseCorePlugin();
 
@@ -57,7 +62,6 @@ class FirebaseCorePlugin : public flutter::Plugin,
 
  private:
   bool coreInitialized = false;
-  static std::map<std::string, std::vector<std::string>> firebase_apps;
 };
 
 }  // namespace firebase_core_windows

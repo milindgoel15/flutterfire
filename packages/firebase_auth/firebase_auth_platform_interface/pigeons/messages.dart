@@ -20,10 +20,6 @@ import 'package:pigeon/pigeon.dart';
     objcHeaderOut:
         '../firebase_auth/ios/Classes/Public/firebase_auth_messages.g.h',
     objcSourceOut: '../firebase_auth/ios/Classes/firebase_auth_messages.g.m',
-    cppHeaderOut: '../firebase_auth/windows/messages.g.h',
-    cppSourceOut: '../firebase_auth/windows/messages.g.cpp',
-    cppOptions: CppOptions(namespace: 'firebase_auth_windows'),
-    copyrightHeader: 'pigeons/copyright.txt',
   ),
 )
 class PigeonMultiFactorSession {
@@ -95,6 +91,16 @@ enum ActionCodeInfoOperation {
   revertSecondFactorAddition,
 }
 
+class PigeonActionCodeInfo {
+  const PigeonActionCodeInfo({
+    required this.operation,
+    required this.data,
+  });
+
+  final ActionCodeInfoOperation operation;
+  final PigeonActionCodeInfoData data;
+}
+
 class PigeonActionCodeInfoData {
   const PigeonActionCodeInfoData({
     this.email,
@@ -105,14 +111,16 @@ class PigeonActionCodeInfoData {
   final String? previousEmail;
 }
 
-class PigeonActionCodeInfo {
-  const PigeonActionCodeInfo({
-    required this.operation,
-    required this.data,
+class PigeonUserCredential {
+  const PigeonUserCredential({
+    required this.user,
+    required this.additionalUserInfo,
+    required this.credential,
   });
 
-  final ActionCodeInfoOperation operation;
-  final PigeonActionCodeInfoData data;
+  final PigeonUserDetails? user;
+  final PigeonAdditionalUserInfo? additionalUserInfo;
+  final PigeonAuthCredential? credential;
 }
 
 class PigeonAdditionalUserInfo {
@@ -183,18 +191,6 @@ class PigeonUserDetails {
 
   final PigeonUserInfo userInfo;
   final List<Map<Object?, Object?>?> providerData;
-}
-
-class PigeonUserCredential {
-  const PigeonUserCredential({
-    required this.user,
-    required this.additionalUserInfo,
-    required this.credential,
-  });
-
-  final PigeonUserDetails? user;
-  final PigeonAdditionalUserInfo? additionalUserInfo;
-  final PigeonAuthCredential? credential;
 }
 
 class PigeonAuthCredentialInput {
@@ -632,5 +628,5 @@ abstract class MultiFactorTotpSecretHostApi {
 /// Only used to generate the object interface that are use outside of the Pigeon interface
 @HostApi()
 abstract class GenerateInterfaces {
-  void pigeonInterface(PigeonMultiFactorInfo info);
+  void generateInterfaces(PigeonMultiFactorInfo info);
 }
